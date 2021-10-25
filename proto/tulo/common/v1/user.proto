@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+package tulo.common.v1;
+
+service UserService {
+  // --
+  // common_005 Get Users
+  // --
+  rpc GetUsers (google.protobuf.Empty) returns (UsersResponse);
+
+  // --
+  // common_006 Upsert User
+  // --
+  rpc UpsertUser (UpsertUserRequest) returns (UpsertUserResponse);
+
+  // --
+  // common_007 User Login
+  // --
+  rpc UserLogin (LoginInfoRequest) returns (UserResponse);
+}
+
+message UsersResponse {
+  repeated User users = 1;
+}
+
+message UpsertUserRequest {
+  User user = 1;
+}
+
+message UpsertUserResponse {
+  User user = 1;
+}
+
+message LoginInfoRequest {
+  google.protobuf.StringValue user_info = 1;
+}
+
+message UserResponse {
+  User user = 1;
+}
+
+message User {
+  google.protobuf.Int64Value employee_id = 1; // ID
+  google.protobuf.StringValue user_name = 2; // User Name
+  google.protobuf.StringValue encrypted_password = 3; // Password
+  google.protobuf.StringValue created_at = 4; // Created At
+  google.protobuf.StringValue updated_at = 5; // Updated At
+}
