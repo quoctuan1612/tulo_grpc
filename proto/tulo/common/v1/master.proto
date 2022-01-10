@@ -56,7 +56,7 @@ message District {
   google.protobuf.StringValue code_name = 4; // Code Name
   google.protobuf.StringValue division_type = 5; // Division Type
   google.protobuf.StringValue short_code_name = 6; // Short Code Name
-  google.protobuf.Int64Value master_province_id = 9; // Province ID
+  google.protobuf.Int64Value master_province_id = 7; // Province ID
 }
 
 message Ward {
@@ -66,5 +66,5 @@ message Ward {
   google.protobuf.StringValue code_name = 4; // Code Name
   google.protobuf.StringValue division_type = 5; // Division Type
   google.protobuf.StringValue short_code_name = 6; // Short Code Name
-  google.protobuf.Int64Value master_district_id = 9; // District ID
+  google.protobuf.Int64Value master_district_id = 7; // District ID
 }

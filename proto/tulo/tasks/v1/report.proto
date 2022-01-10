@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "tulo/common/v1/response.proto";
+
+package tulo.tasks.v1;
+
+service ReportService {
+  rpc GetReports (google.protobuf.Empty) returns (ReportsResponse);
+
+  rpc UpsertReport (UpsertReportRequest) returns (UpsertReportResponse);
+
+  rpc GetReportById (ReportIdRequest) returns (ReportResponse) {};
+
+  rpc GetReportByDocumentIncomingId (DocumentIncomingIdRequest) returns (ReportsResponse) {};
+
+  rpc DeleteReportById (ReportIdRequest) returns (tulo.common.v1.CommonDeleteResponse) {};
+}
+
+message ReportsResponse {
+  repeated Report reports = 1;
+}
+
+message UpsertReportRequest {
+  Report report = 1;
+}
+
+message UpsertReportResponse {
+  Report report = 1;
+}
+
+message DocumentIncomingIdRequest {
+  google.protobuf.Int64Value id = 1;
+}
+
+message ReportResponse {
+  Report report = 1;
+}
+
+message ReportIdRequest {
+  google.protobuf.Int64Value id = 1;
+}
+
+
+message Report {
+  google.protobuf.Int64Value id = 1; // Report ID
+  google.protobuf.Int64Value document_incoming_id = 2; // Document Incoming Id
+  google.protobuf.Int64Value employee_id = 3; // Employee Id
+  google.protobuf.StringValue role_name = 4; // Role Name
+  google.protobuf.StringValue message = 5; // Message
+  google.protobuf.StringValue created_at = 6; // Created At
+  google.protobuf.StringValue updated_at = 7; // Updated At
+}
+  

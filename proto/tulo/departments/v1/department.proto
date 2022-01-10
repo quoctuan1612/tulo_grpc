@@ -2,19 +2,18 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
+import "tulo/common/v1/response.proto";
 
 package tulo.departments.v1;
 
 service DepartmentService {
-  // --
-  // department_001 Get Departments
-  // --
   rpc GetDepartments (google.protobuf.Empty) returns (DepartmentsResponse);
 
-  // --
-  // department_002 Upsert Department
-  // --
   rpc UpsertDepartment (UpsertDepartmentRequest) returns (UpsertDepartmentResponse);
+
+  rpc GetDepartmentById (DepartmentIdRequest) returns (DepartmentResponse) {};
+
+  rpc DeleteDepartmentById (DepartmentIdRequest) returns (tulo.common.v1.CommonDeleteResponse) {};
 }
 
 message DepartmentsResponse {
@@ -26,6 +25,14 @@ message UpsertDepartmentRequest {
 }
 
 message UpsertDepartmentResponse {
+  Department department = 1;
+}
+
+message DepartmentIdRequest {
+  google.protobuf.Int64Value id = 1;
+}
+
+message DepartmentResponse {
   Department department = 1;
 }
 

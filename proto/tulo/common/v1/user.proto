@@ -2,24 +2,20 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
+import "tulo/common/v1/response.proto";
 
 package tulo.common.v1;
 
 service UserService {
-  // --
-  // common_005 Get Users
-  // --
   rpc GetUsers (google.protobuf.Empty) returns (UsersResponse);
 
-  // --
-  // common_006 Upsert User
-  // --
   rpc UpsertUser (UpsertUserRequest) returns (UpsertUserResponse);
 
-  // --
-  // common_007 User Login
-  // --
-  rpc UserLogin (LoginInfoRequest) returns (UserResponse);
+  rpc GetUserById (UserIdRequest) returns (UserResponse) {};
+
+  rpc DeleteUserById (UserIdRequest) returns (v1.CommonDeleteResponse) {};
+
+  rpc UserLogin (LoginInfoRequest) returns (UserInfoResponse);
 }
 
 message UsersResponse {
@@ -42,10 +38,33 @@ message UserResponse {
   User user = 1;
 }
 
-message User {
-  google.protobuf.Int64Value employee_id = 1; // ID
+message UserIdRequest {
+  google.protobuf.Int64Value id = 1;
+}
+
+message UserInfoResponse {
+  google.protobuf.Int64Value employee_id = 1; // Employee ID
   google.protobuf.StringValue user_name = 2; // User Name
   google.protobuf.StringValue encrypted_password = 3; // Password
-  google.protobuf.StringValue created_at = 4; // Created At
-  google.protobuf.StringValue updated_at = 5; // Updated At
+  google.protobuf.StringValue employee_name = 4; // Employee Name
+  google.protobuf.StringValue email = 5; // Email
+  google.protobuf.StringValue phone = 6; // Phone
+  google.protobuf.StringValue role_id = 7; // Role Id
+  google.protobuf.Int64Value department_id = 8; // Department Id
+  repeated RightToDo right_to_do = 9;
+}
+
+message User {
+  google.protobuf.Int64Value id = 1; // ID
+  google.protobuf.Int64Value employee_id = 2; // Employee ID
+  google.protobuf.StringValue user_name = 3; // User Name
+  google.protobuf.StringValue encrypted_password = 4; // Password
+  google.protobuf.StringValue created_at = 5; // Created At
+  google.protobuf.StringValue updated_at = 6; // Updated At
+}
+
+message RightToDo {
+  google.protobuf.StringValue permission_name = 1; // Permission Name
+  google.protobuf.StringValue permission = 2; // Permission
+  google.protobuf.BoolValue is_active = 3; // Is Active
 }
